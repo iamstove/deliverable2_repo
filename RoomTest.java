@@ -6,7 +6,10 @@ import org.junit.Test;
 
 public class RoomTest 
 {
-
+	
+	/*
+	 Tests that an empty room has no items
+	*/
 	@Test
 	public void testHasItemFalse() 
 	{
@@ -18,7 +21,9 @@ public class RoomTest
 		//should return false
 		assertFalse(testRoom.hasItem());
 	}
-
+	/*
+	 tests that a non-empty room has items
+	*/
 	@Test
 	public void testHasItemTrue() 
 	{
@@ -32,7 +37,10 @@ public class RoomTest
 		//all rooms should return true
 		assertTrue(testRoom1.hasItem() && testRoom2.hasItem() && testRoom3.hasItem());
 	}
-
+	
+	/*
+	 tests than a room with no sugar returns false when checked for sugar
+	*/
 	@Test
 	public void testHasSugarFalse() 
 	{
@@ -43,6 +51,7 @@ public class RoomTest
 		assertFalse(testRoom.hasSugar());
 	}
 
+	//tests that a room with sugar returns true when checked for sugar
 	@Test
 	public void testHasSugarTrue() 
 	{
@@ -53,6 +62,7 @@ public class RoomTest
 		assertTrue(testRoom.hasSugar());
 	}
 
+	//tests that a room with no cream returns false when checked for cream
 	@Test
 	public void testHasCreamFalse() 
 	{
@@ -63,6 +73,7 @@ public class RoomTest
 		assertFalse(testRoom.hasCream());
 	}
 
+	//tests that a room with cream returns true when checked for cream
 	@Test
 	public void testHasCreamTrue() 
 	{
@@ -73,6 +84,7 @@ public class RoomTest
 		assertTrue(testRoom.hasCream());
 	}
 	
+	//tests that a room with no coffee returns false when checked for coffee
 	@Test
 	public void testHasCoffeeFalse() 
 	{
@@ -83,6 +95,7 @@ public class RoomTest
 		assertFalse(testRoom.hasCoffee());
 	}
 	
+	//tests that a room with coffee returns true when checked for coffee
 	@Test
 	public void testHasCoffeeTrue() 
 	{
@@ -93,6 +106,7 @@ public class RoomTest
 		assertTrue(testRoom.hasCoffee());
 	}
 	
+	//tests that a room with no north exit returns false when checked for one
 	@Test
 	public void testNorthExitFalse() 
 	{
@@ -103,6 +117,7 @@ public class RoomTest
 		assertFalse(testRoom.northExit());
 	}
 	
+	//tests that a room with a north exit returns true when checked for one
 	@Test
 	public void testNorthExitTrue() 
 	{
@@ -113,6 +128,7 @@ public class RoomTest
 		assertTrue(testRoom.northExit());
 	}
 	
+	//tests that a room with no south exit returns false when checked for one
 	@Test
 	public void testSouthExitFalse() 
 	{
@@ -123,6 +139,7 @@ public class RoomTest
 		assertFalse(testRoom.southExit());
 	}
 
+	//tests that a room with a south exit returns true when checked for one
 	@Test
 	public void testSouthExitTrue() 
 	{
@@ -133,6 +150,8 @@ public class RoomTest
 		assertTrue(testRoom.southExit());
 	}
 	
+	//Create a room with Coffee and a North Exit
+	//check that only those attributes are set to true
 	@Test
 	public void testRoomCoNo() 
 	{
@@ -143,6 +162,8 @@ public class RoomTest
 		assertTrue(testRoom.hasCoffee() && !testRoom.hasCream() && !testRoom.hasSugar() && testRoom.northExit() && !testRoom.southExit());
 	}
 
+	//Create a room with Cream, a North Exit, and a South Exit
+	//Ensure that only those attributes are set to true
 	@Test
 	public void testRoomCrNoSo() 
 	{
@@ -153,6 +174,8 @@ public class RoomTest
 		assertTrue(!testRoom.hasCoffee() && testRoom.hasCream() && !testRoom.hasSugar() && testRoom.northExit() && testRoom.southExit());
 	}
 	
+	//Create empty room
+	//ensure that all attributes are set to false
 	@Test
 	public void testRoomEmpty() 
 	{
@@ -163,6 +186,20 @@ public class RoomTest
 		assertFalse(testRoom.hasCoffee() || testRoom.hasCream() || testRoom.hasSugar() || testRoom.northExit() || testRoom.southExit());
 	}
 	
+	//Create FULL room
+	//ensure that all attributes are set to true
+	@Test
+	public void testRoomFull() 
+	{
+		//create room with nothing
+		Room testRoom = new Room(true, true, true, true, true);
+		
+		//make sure we created the expected room qualities (FULL)
+		assertTrue(testRoom.hasCoffee() && testRoom.hasCream() && testRoom.hasSugar() && testRoom.northExit() && testRoom.southExit());
+	}
+
+	//make 2 empty rooms
+	//ensure that their descriptions are not the same (should be random each time)
 	@Test
 	public void testGetDescription() 
 	{
@@ -177,6 +214,8 @@ public class RoomTest
 		//get room descriptions
 		des1 = testRoom1.getDescription();
 		des2 = testRoom2.getDescription();
+		
+		//make sure they are different
 		assertFalse(des1.equals(des2));
 	}
 
