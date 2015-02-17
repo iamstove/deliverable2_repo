@@ -1,20 +1,41 @@
 package com.laboon;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
 
 public class CoffeeMakerTest{
 
-	@Test
-	public void runGameLoopTest(){
-		fail("No test");
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+	@Before
+	public void setUpStreams() { //capture output to stdout 
+	    System.setOut(new PrintStream(outContent));
+	    System.setErr(new PrintStream(errContent));
+
+	    House mockedHouse =  mock(House.class);
+		Player mockedPlayer = mock(Player.class);
+		Game testGame = new Game(mockedPlayer, mockedHouse);
+	}
+	
+	@After
+	public void cleanUpStreams() {
+	    System.setOut(null);
+	    System.setErr(null);
 	}
 
 	@Test
 	public void runArgsTest(){
 		//this function always returns zero, could also test it prints correctly
 		CoffeeMaker testcm = new CoffeeMaker();
-		int retval = testcm.runArgs("string"); //the input string is irrelevant
-		AssertEquals(retval, 0);
+		String arg = "string";
+		int retval = testcm.runArgs(arg); //the input string is irrelevant
+		assertEquals(retval, 0);
 	}
 }
