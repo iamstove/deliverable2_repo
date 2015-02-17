@@ -18,10 +18,6 @@ public class CoffeeMakerTest{
 	public void setUpStreams() { //capture output to stdout 
 	    System.setOut(new PrintStream(outContent));
 	    System.setErr(new PrintStream(errContent));
-
-	    House mockedHouse =  mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
 	}
 	
 	@After
@@ -37,5 +33,32 @@ public class CoffeeMakerTest{
 		String arg = "string";
 		int retval = testcm.runArgs(arg); //the input string is irrelevant
 		assertEquals(retval, 0);
+	}
+
+	@Test
+	public void runGameLoopTestWin(){
+		House mockedHouse =  mock(House.class);
+		Player mockedPlayer = mock(Player.class);
+		Game mockedGame = mock(Game.class);
+		when(mockedGame.run()).thenReturn(0);
+		CoffeeMaker testcm = new CoffeeMaker();
+
+		boolean val = testcm.runGameLoop(mockedPlayer, mockedHouse, mockedGame);
+
+		assertEquals(val, 0);
+	}
+
+	@Test
+	public void runGameLoopTestLose(){
+		House mockedHouse =  mock(House.class);
+		Player mockedPlayer = mock(Player.class);
+		Game mockedGame = mock(Game.class);
+		when(mockedGame.run()).thenReturn(1);
+		CoffeeMaker testcm = new CoffeeMaker();
+
+		boolean val = testcm.runGameLoop(mockedPlayer, mockedHouse, mockedGame);
+
+		assertEquals(val, 1);
+
 	}
 }

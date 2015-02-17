@@ -1,11 +1,13 @@
 package com.laboon;
 import static org.junit.Assert.*;
+import static org.mockito.Mockito.mock;
 
-import java.io.*;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
 
-import org.junit.Test;
 import org.junit.After;
 import org.junit.Before;
+import org.junit.Test;
 
 public class PlayerTest{
 
@@ -27,16 +29,22 @@ public class PlayerTest{
 	@Test
 	public void testGetSugar(){
 		Player testPlayer = new Player(false, false, false); //create a new player with no items
+		testPlayer.getSugar();
+		assertEquals("You found some sweet sugar!\n" , outContent.toString());
 	}
 
 	@Test
 	public void testGetCoffee(){
 		Player testPlayer = new Player(false, false, false); //create a new player with no items
+		testPlayer.getCoffee();
+		assertEquals("You found some creamy cream!\n" , outContent.toString());
 	}
 
 	@Test
 	public void testGetCream(){
 		Player testPlayer = new Player(false, false, false); //create a new player with no items
+		testPlayer.getCream();
+		assertEquals("You found some caffeinated coffee!\n" , outContent.toString());
 	}
 
 	@Test
