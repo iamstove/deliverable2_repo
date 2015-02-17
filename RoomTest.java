@@ -111,7 +111,7 @@ public class RoomTest
 	public void testNorthExitFalse() 
 	{
 		//room with no North exit, but everything else is true
-		Room testRoom = new Room(true, true, true, true, false);
+		Room testRoom = new Room(true, true, true, false, true);
 		
 		//should be false
 		assertFalse(testRoom.northExit());
