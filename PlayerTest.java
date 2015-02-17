@@ -1,5 +1,7 @@
 package com.laboon;
-import static org.junit.assert.*;
+import static org.junit.Assert.*;
+
+import java.io.*;
 
 import org.junit.Test;
 import org.junit.After;
@@ -16,6 +18,11 @@ public class PlayerTest{
 	    System.setErr(new PrintStream(errContent));
 	}
 
+	@After
+	public void cleanUpStreams() {
+	    System.setOut(null);
+	    System.setErr(null);
+	}
 
 	@Test
 	public void testGetSugar(){
@@ -34,7 +41,7 @@ public class PlayerTest{
 
 	@Test
 	public void testHasAllItems(){
-		Player testPlayer = new Player(); //create a player with no items 
+		Player testPlayer = new Player(false, false, false); //create a player with no items 
 		boolean result = testPlayer.hasAllItems();
 
 		assertFalse(result);
@@ -50,33 +57,6 @@ public class PlayerTest{
 		testPlayer.getCoffee();
 		result = testPlayer.hasAllItems();
 		assertTrue(result);
-	}
-
-	@Test
-	public void testShowInvintoryCream(){
-		Player testPlayer = new Player();
-		testPlayer.showInvintory();
-		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		testPlayer.getCream();
-		assertEqual("YOU HAVE NO COFFEE!\nYou have some fresh cream.\nYOU HAVE NO SUGAR!\n");
-	}
-
-	@Test
-	public void testShowInvintorySugar(){
-		Player testPlayer = new Player();
-		testPlayer.showInvintory();
-		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		testPlayer.getSugar();
-		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYou have some tasty sugar.\n");
-	}
-
-	@Test
-	public void testShowInvintoryCoffee(){
-		Player testPlayer = new Player();
-		testPlayer.showInvintory();
-		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
-		testPlayer.getCoffee();
-		assertEqual("You have a cup of delicious coffee.\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 	}
 
 	@Test
@@ -121,11 +101,5 @@ public class PlayerTest{
 		Player testPlayer = new Player(true, true, true); //player with all the items
 		boolean result = testPlayer.drink();
 		assertTrue(result);
-	}
-
-	@After
-	public void cleanUpStreams() {
-	    System.setOut(null);
-	    System.setErr(null);
 	}
 }
