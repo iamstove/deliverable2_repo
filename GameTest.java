@@ -1,6 +1,6 @@
 package com.laboon;
-import static org.junit.Assert.*;
 
+<<<<<<< Updated upstream
 import java.io.*;
 
 import org.junit.After;
@@ -8,6 +8,15 @@ import org.junit.Before;
 import org.junit.Test;
 
 import static org.mockito.Mockito.*;
+
+import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import org.mockito.*;
+
 
 public class GameTest{
 
@@ -124,5 +133,11 @@ public class GameTest{
 
 		assertEquals(testGame.doSomething("D"),-1);
 		assertEquals(testGame.doSomething("d"),-1);
+	}
+
+	@After
+	public void cleanUpStreams() {
+	    System.setOut(null);
+	    System.setErr(null);
 	}
 }

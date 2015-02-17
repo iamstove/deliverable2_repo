@@ -1,4 +1,5 @@
 package com.laboon;
+<<<<<<< Updated upstream
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.mock;
 
@@ -8,6 +9,16 @@ import java.io.PrintStream;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+=======
+
+import static org.junit.Assert.*;
+import org.junit.After;
+import org.junit.Before;
+import org.junit.Test;
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+import org.mockito.*;
+>>>>>>> Stashed changes
 
 public class PlayerTest{
 
