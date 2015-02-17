@@ -7,13 +7,22 @@ import static org.mockito.Mockito.*;
 
 public class GameTest{
 
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
+
+	@Before
+	public void setUpStreams() { //capture output to stdout 
+	    System.setOut(new PrintStream(outContent));
+	    System.setErr(new PrintStream(errContent));
+
+	    House mockedHouse =  mock(House.class);
+		Player mockedPlayer = mock(Player.class);
+		Game testGame = new Game(mockedPlayer, mockedHouse);
+	}
+
 	//no test for the constructor, that can't be tested
 	@Test
 	public void testCase(){
-		House mockedHouse =  mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
 		assertEquals(testGame.doSomething("n"),testGame.doSomething("N"));
 		assertEquals(testGame.doSomething("s"),testGame.doSomething("S"));
 		assertEquals(testGame.doSomething("l"),testGame.doSomething("L"));
@@ -25,10 +34,6 @@ public class GameTest{
 
 	@Test
 	public void testN(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
 		testGame.doSomething("N");
 		testGame.doSomething("n");
 		verify(mockedHouse, times(2)).moveNorth();
@@ -36,10 +41,6 @@ public class GameTest{
 
 	@Test
 	public void testS(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
 		testGame.doSomething("S");
 		testGame.doSomething("s");
 		verify(mockedHouse, times(2)).moveSouth();
@@ -47,10 +48,6 @@ public class GameTest{
 
 	@Test
 	public void testL(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
 		testGame.doSomething("L");
 		testGame.doSomething("l");
 		verify(mockedHousee, times(2)).moveLook();
@@ -58,10 +55,6 @@ public class GameTest{
 
 	@Test
 	public void testI(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
 		testGame.doSomething("I");
 		testGame.doSomething("i");
 		verify(mockedPlayer, times(2)).showInvintory();
@@ -71,58 +64,47 @@ public class GameTest{
 
 	@Test
 	public void testH(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
 		//capture prints
-		assertEquals(testGame.help(), "<help message>");
-		
+		testGame.help()
+		assertEquals(outContent.toString(), "<help message>");
 	}
 
 	@Test
 	public void testDWin(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
 		when(mockedPlayer.drink()).thenReturn(true);
 
 		assertEquals(testGame.doSomething("D"),1);
 		assertEquals(testGame.doSomething("d"),1);
-		
 	}
 
 	@Test
 	public void testDLose(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
 		when(mockedPlayer.drink()).thenReturn(false);
 
 		assertEquals(testGame.doSomething("D"),-1);
 		assertEquals(testGame.doSomething("d"),-1);
-		
 	}
 
 	@Test
 	public void testNumeric(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
-		testGame.doSomething(1);
+		boolean result = testGame.doSomething(1);
 		//capture output and compare
+		assertEquals(outContent.toString, "What?\n");
+		assertEquals(result, 0);
 	}
 
 	@Test
 	public void testString(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-
-		testGame.doSomething("asdf");
+		boolean result = testGame.doSomething("asdf");
 		//capture output and compare
+		assertEquals(outContent.toString, "What?\n");
+		assertEquals(result, 0);
+	}
+
+	@After
+	public void cleanUpStreams() {
+	    System.setOut(null);
+	    System.setErr(null);
 	}
 
 /*
@@ -145,4 +127,9 @@ public class GameTest{
 		fail("Not yet implemented");
 	}
 do I have to do these?*/
+	@After
+	public void cleanUpStreams() {
+	    System.setOut(null);
+	    System.setErr(null);
+	}
 }
