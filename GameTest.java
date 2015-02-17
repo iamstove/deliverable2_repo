@@ -120,27 +120,4 @@ public class GameTest{
 		assertEquals(testGame.doSomething("D"),-1);
 		assertEquals(testGame.doSomething("d"),-1);
 	}
-
-	@Test
-	public void testNumeric(){
-	    House mockedHouse =  mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-		int result = testGame.doSomething(Integer.toString(1));
-		//capture output and compare
-		assertEquals(outContent.toString(), "What?\n");
-		assertEquals(result, 0);
-	}
-
-	@Test
-	public void testString(){
-	    House mockedHouse =  mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-		int result = testGame.doSomething("asdf");
-		//capture output and compare
-		assertEquals(outContent.toString(), "What?\n");
-		assertEquals(result, 0);
-	}
-
 }
