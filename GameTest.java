@@ -116,27 +116,4 @@ public class GameTest{
 		assertEquals(testGame.doSomething("D"),-1);
 		assertEquals(testGame.doSomething("d"),-1);
 	}
-
-
-	@Test
-	public void testRunWin(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-		//mock
-		when(mockedPlayer.drink()).thenReturn(true);
-		//capture output
-		boolean val = testGame.run();
-		assertEquals(val, 0);
-	}
-	@Test
-	public void testRunLose(){
-		House mockedHouse = mock(House.class);
-		Player mockedPlayer = mock(Player.class);
-		Game testGame = new Game(mockedPlayer, mockedHouse);
-		when(mockedPlayer.drink()).thenReturn(false);
-		//capture output
-		boolean val = testGame.run();
-		assertEquals(val, 1);
-	}
 }
