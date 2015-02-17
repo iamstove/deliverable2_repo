@@ -1,18 +1,34 @@
 package com.laboon;
 import static org.junit.Assert.*;
 
+import java.io.ByteArrayOutputStream;
+import java.io.PrintStream;
+
+import org.junit.After;
+import org.junit.Before;
 import org.junit.Test;
+
+import static org.mockito.Mockito.*;
 
 public class HouseTest {
 
-	@Test
-	public void testHouseInt() {
-		fail("Not yet implemented");
-	}
+	private final ByteArrayOutputStream outContent = new ByteArrayOutputStream();
+	private final ByteArrayOutputStream errContent = new ByteArrayOutputStream();
 
-	@Test
-	public void testHouseRoomArray() {
-		fail("Not yet implemented");
+	@Before
+	public void setUpStreams() { //capture output to stdout 
+	    System.setOut(new PrintStream(outContent));
+	    System.setErr(new PrintStream(errContent));
+
+	    House mockedHouse =  mock(House.class);
+		Player mockedPlayer = mock(Player.class);
+		Game testGame = new Game(mockedPlayer, mockedHouse);
+	}
+	
+	@After
+	public void cleanUpStreams() {
+	    System.setOut(null);
+	    System.setErr(null);
 	}
 
 	//test that a negative numbered room returns the expected error message
@@ -63,7 +79,7 @@ public class HouseTest {
 	@Test
 	public void testMoveNorth() {
 		//2-roomed house
-		House testHouse = new House(1);
+		House testHouse = new House(2);
 		String testInfo1, testInfo2, testInfo3, testInfo4;
 				
 		//check description
@@ -110,6 +126,35 @@ public class HouseTest {
 		assertTrue(testInfo1.equals(testInfo3) && !testInfo1.equals(testInfo2) && testInfo2.equals("You are in a magical land!  But you are returned to the beginning!"));
 	}
 	
+	//Create room with no items
+	//player looks in the room and should pick up no items
+	@Test
+	public void testLookNothing() {
+		
+		//create player with all items, but coffee
+		Player testPlayer = new Player(false, false, false);
+
+		//create room with nothing
+		Room testRoom = new Room(false, false, false, false, false);
+		
+		//make house arbitary number of rooms
+		House testHouse = new House(6);
+				
+		boolean beforeLook, afterLook;
+		
+		//player should not have all items before looking
+		beforeLook = testPlayer.hasAllItems();
+		
+		//look
+		testHouse.look(testPlayer, testRoom);
+		
+		//player should not have all items after looking
+		afterLook = testPlayer.hasAllItems();
+		
+		//make sure not true before and true after
+		assertFalse(beforeLook || afterLook);
+	}
+	
 	//Create room with with coffee
 	//player looks in the room and should pick up coffee
 	@Test
@@ -119,14 +164,12 @@ public class HouseTest {
 		Player testPlayer = new Player(true, true, false);
 
 		//create room with coffee (must be in array for House object)
-		Room[] testRooms = new Room[1];
 		Room testRoom = new Room(true, false, false, false, false);
-		testRooms[0] = testRoom;
 		
 		//make house with single room declared
-		House testHouse = new House(testRooms);
+		House testHouse = new House(8);
 				
-		Boolean beforeLook, afterLook;
+		boolean beforeLook, afterLook;
 		
 		//player should not have all items before looking
 		beforeLook = testPlayer.hasAllItems();
@@ -149,13 +192,11 @@ public class HouseTest {
 		//create player with no items
 		Player testPlayer = new Player(false, false, false);
 
-		//create room with all items (must be in array for House object)
-		Room[] testRooms = new Room[1];
+		//create room with all items
 		Room testRoom = new Room(true, true, true, false, false);
-		testRooms[0] = testRoom;
 		
 		//make house with single room declared
-		House testHouse = new House(testRooms);
+		House testHouse = new House(6);
 				
 		Boolean beforeLook, afterLook;
 		
