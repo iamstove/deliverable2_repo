@@ -27,27 +27,6 @@ public class PlayerTest{
 	}
 
 	@Test
-	public void testGetSugar(){
-		Player testPlayer = new Player(false, false, false); //create a new player with no items
-		testPlayer.getSugar();
-		assertEquals("You found some sweet sugar!\n" , outContent.toString());
-	}
-
-	@Test
-	public void testGetCoffee(){
-		Player testPlayer = new Player(false, false, false); //create a new player with no items
-		testPlayer.getCoffee();
-		assertEquals("You found some creamy cream!\n" , outContent.toString());
-	}
-
-	@Test
-	public void testGetCream(){
-		Player testPlayer = new Player(false, false, false); //create a new player with no items
-		testPlayer.getCream();
-		assertEquals("You found some caffeinated coffee!\n" , outContent.toString());
-	}
-
-	@Test
 	public void testHasAllItems(){
 		Player testPlayer = new Player(false, false, false); //create a player with no items 
 		boolean result = testPlayer.hasAllItems();
