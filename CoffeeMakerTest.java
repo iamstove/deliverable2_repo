@@ -17,7 +17,4 @@ public class CoffeeMakerTest{
 		int retval = testcm.runArgs("string"); //the input string is irrelevant
 		AssertEquals(retval, 0);
 	}
-
-	@Test
-	public void 
 }

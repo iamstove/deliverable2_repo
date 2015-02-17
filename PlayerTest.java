@@ -1,7 +1,9 @@
 package com.laboon;
-import static org.junit.Assert.*;
+import static org.junit.assert.*;
 
 import org.junit.Test;
+import org.junit.After;
+import org.junit.Before;
 
 public class PlayerTest{
 
@@ -35,62 +37,91 @@ public class PlayerTest{
 		Player testPlayer = new Player(); //create a player with no items 
 		boolean result = testPlayer.hasAllItems();
 
-		AssertFalse(result);
+		assertFalse(result);
 		
 		testPlayer.getSugar();
 		result = testPlayer.hasAllItems();
-		AssertFalse(result);
+		assertFalse(result);
 
 		testPlayer.getCream();
 		result = testPlayer.hasAllItems();
-		AssertFalse(result);
+		assertFalse(result);
 
 		testPlayer.getCoffee();
 		result = testPlayer.hasAllItems();
-		AssertTrue(result);
+		assertTrue(result);
 	}
 
 	@Test
 	public void testShowInvintoryCream(){
 		Player testPlayer = new Player();
 		testPlayer.showInvintory();
-		AssertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 		testPlayer.getCream();
-		AssertEqual("YOU HAVE NO COFFEE!\nYou have some fresh cream.\nYOU HAVE NO SUGAR!\n");
+		assertEqual("YOU HAVE NO COFFEE!\nYou have some fresh cream.\nYOU HAVE NO SUGAR!\n");
 	}
 
 	@Test
 	public void testShowInvintorySugar(){
 		Player testPlayer = new Player();
 		testPlayer.showInvintory();
-		AssertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 		testPlayer.getSugar();
-		AssertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYou have some tasty sugar.\n");
+		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYou have some tasty sugar.\n");
 	}
 
 	@Test
 	public void testShowInvintoryCoffee(){
 		Player testPlayer = new Player();
 		testPlayer.showInvintory();
-		AssertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		assertEqual("YOU HAVE NO COFFEE!\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 		testPlayer.getCoffee();
-		AssertEqual("You have a cup of delicious coffee.\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
+		assertEqual("You have a cup of delicious coffee.\nYOU HAVE NO CREAM!\nYOU HAVE NO SUGAR!\n");
 	}
 
 	@Test
 	public void testDrinkFalse(){
 		Player testPlayer = new Player(); //all false player
 		boolean result = testPlayer.drink();
-		AssertFalse(result);
+		assertFalse(result); //none
+		
+		
 		testPlayer.getCoffee();
 		result = testPlayer.drink();
-		AssertFalse(result);
+		assertFalse(result); //coffee
+		
+		
 		testPlayer.getSugar();
 		result = testPlayer.drink();
-		AssertFalse(result);
-		Player testPlayer = new Player()
+		assertFalse(result); //coffee + sugar
+		
+		
+		Player testPlayer2 = new Player(false, true, false); //player just has cream
+		result = testPlayer2.drink();
+		assertFalse(result); //cream
+		
+		
+		testPlayer2.getCoffee();
+		result = testPlayer2.drink();
+		assertFalse(result); //cream + coffee
+		
+		
+		Player testPlayer3 = new Player(true, false, false); //player just sugar
+		result = testPlayer3.drink();
+		assertFalse(result); //sugar
+		
+
+		testPlayer3.getCream();
+		result = testPlayer3.drink();
+		assertFalse(result); //sugar + cream
 	}
 
+	@Test
+	public void testDrinkTrue(){
+		Player testPlayer = new Player(true, true, true); //player with all the items
+		boolean result = testPlayer.drink();
+		assertTrue(result);
+	}
 
 	@After
 	public void cleanUpStreams() {

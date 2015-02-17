@@ -1,4 +1,4 @@
-package com.laboon;
+Opackage com.laboon;
 
 public class Player {
 
